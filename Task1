@@ -1,0 +1,57 @@
+using System;
+
+namespace GeometryLibrary
+{
+    // Абстрактный класс для представления геометрических фигур
+    public abstract class Shape
+    {
+        public abstract double CalculateArea();
+    }
+
+    // Класс для вычисления площади круга
+    public class Circle : Shape
+    {
+        private double radius;
+
+        public Circle(double radius)
+        {
+            this.radius = radius;
+        }
+
+        public override double CalculateArea()
+        {
+            return Math.PI * radius * radius;
+        }
+    }
+
+    // Класс для вычисления площади треугольника
+    public class Triangle : Shape
+    {
+        private double side1;
+        private double side2;
+        private double side3;
+
+        public Triangle(double side1, double side2, double side3)
+        {
+            this.side1 = side1;
+            this.side2 = side2;
+            this.side3 = side3;
+        }
+
+        public override double CalculateArea()
+        {
+            // Используем формулу Герона для вычисления площади треугольника
+            double s = (side1 + side2 + side3) / 2;
+            return Math.Sqrt(s * (s - side1) * (s - side2) * (s - side3));
+        }
+
+        // Метод для проверки прямоугольности треугольника
+        public bool IsRightAngled()
+        {
+            // Проверяем теорему Пифагора
+            return (side1 * side1 == side2 * side2 + side3 * side3) ||
+                   (side2 * side2 == side1 * side1 + side3 * side3) ||
+                   (side3 * side3 == side1 * side1 + side2 * side2);
+        }
+    }
+}
